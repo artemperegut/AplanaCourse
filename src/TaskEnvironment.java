@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class TaskEnvironment {
@@ -19,21 +20,22 @@ public class TaskEnvironment {
         Task8 task8 = new Task8(o);
         Task9 task9 = new Task9(o);
         Task10 task10 = new Task10(o);
-
-        TaskEnvironment.writeFile(outS);
     }
 
-    static void printStats(ArrayList<String> array) {
-        for (String element : array) {
+    static void printStats(ArrayList<String> stats) {
+        for (String element : stats) {
             System.out.println(element);
         }
     }
 
-    static void writeFile(ArrayList<String> array) {
-        try {
-            Files.write(Paths.get("output.txt"), array);
-        } catch (IOException e) {
-            e.printStackTrace();
+    static void writeFile(ArrayList<String> stats) {
+        for (String element : stats) {
+            try {
+                Files.write(Paths.get("output.txt"), (element + "\n").getBytes(), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 }

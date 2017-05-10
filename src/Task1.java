@@ -33,7 +33,7 @@ public class Task1 extends Thread implements Task {
 
         out.add("Duration: " + getProcessTime() + " seconds\n");
 
-        TaskEnvironment.outS.addAll(out);
+        TaskEnvironment.writeFile(out);
         TaskEnvironment.printStats(out);
     }
 
