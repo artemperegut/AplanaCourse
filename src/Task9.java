@@ -6,6 +6,7 @@ import java.util.Date;
 public class Task9 extends Thread implements Task {
 
     private final Object o;
+
     Task9(Object o) {
         this.o = o;
         start();
@@ -30,7 +31,9 @@ public class Task9 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 

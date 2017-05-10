@@ -6,6 +6,7 @@ import java.util.Date;
 public class Task5 extends Thread implements Task {
 
     private final Object o;
+
     Task5(Object o) {
         this.o = o;
         start();
@@ -30,11 +31,13 @@ public class Task5 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 
-    static Long smallest() {
+    static synchronized Long smallest() {
         long a = 21;
         while (true) {
             boolean all = true;

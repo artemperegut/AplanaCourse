@@ -6,6 +6,7 @@ import java.util.Date;
 public class Task2 extends Thread implements Task {
 
     private final Object o;
+
     Task2(Object o) {
         this.o = o;
         start();
@@ -30,11 +31,13 @@ public class Task2 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 
-    static int fib() {
+    static synchronized int fib() {
         int fibNext = 0;
         int fib1 = 1;
         int fib2 = 2;

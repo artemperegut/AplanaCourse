@@ -7,6 +7,7 @@ import java.util.Date;
 public class Task4 extends Thread implements Task {
 
     private final Object o;
+
     Task4(Object o) {
         this.o = o;
         start();
@@ -27,21 +28,24 @@ public class Task4 extends Thread implements Task {
         out.add("Start time: " + dateFormat.format(startDate));
 
         ArrayList allPalindromesArray = allPalindromes();
-        out.add("Max palindrome is: " + Collections.max(allPalindromesArray));        endDate = new Date();
+        out.add("Max palindrome is: " + Collections.max(allPalindromesArray));
+        endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 
-    static boolean isPalindrome(String s) {
+    static synchronized boolean isPalindrome(String s) {
         if (s.length() % 2 == 0) {
             s = s.substring(0, s.length() / 2) + s.substring((s.length() / 2));
         }
         return new StringBuffer(s.substring(0, s.length() / 2)).reverse().toString().equals(s.substring(s.length() / 2));
     }
 
-    static ArrayList allPalindromes() {
+    static synchronized ArrayList allPalindromes() {
         int a = 999;
         int b = 999;
         ArrayList<Long> palindromes = new ArrayList<>();

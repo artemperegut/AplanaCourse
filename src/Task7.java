@@ -6,6 +6,7 @@ import java.util.Date;
 public class Task7 extends Thread implements Task {
 
     private final Object o;
+
     Task7(Object o) {
         this.o = o;
         start();
@@ -30,11 +31,13 @@ public class Task7 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 
-    static long primeIndex(int index) {
+    static synchronized long primeIndex(int index) {
         int primesIndex = 1;
         long i = 2;
         while (primesIndex <= index) {

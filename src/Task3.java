@@ -5,6 +5,7 @@ import java.util.*;
 public class Task3 extends Thread implements Task {
 
     private final Object o;
+
     Task3(Object o) {
         this.o = o;
         start();
@@ -32,11 +33,13 @@ public class Task3 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 
-    static ArrayList factors(long number) {
+    static synchronized ArrayList factors(long number) {
         ArrayList<Long> factors = new ArrayList<>();
         for (long i = 2; i <= Math.sqrt(number); i++) {
             if (number % i == 0 & TaskMath.isPrime(i)) {

@@ -6,6 +6,7 @@ import java.util.Date;
 public class Task6 extends Thread implements Task {
 
     private final Object o;
+
     Task6(Object o) {
         this.o = o;
         start();
@@ -31,16 +32,18 @@ public class Task6 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskLogger logger = new TaskLogger();
         logger.log(out);
     }
 
-    static int squareOfSums(int limit) {
+    static synchronized int squareOfSums(int limit) {
         int sum = (limit * (limit + 1)) / 2;
         return sum * sum;
     }
 
-    static int sumOfSquares(int limit) {
+    static synchronized int sumOfSquares(int limit) {
         int sum = 0;
         for (int i = 1; i <= limit; i++) {
             sum += i * i;
