@@ -27,16 +27,11 @@ public class Task4 extends Thread implements Task {
         out.add("Start time: " + dateFormat.format(startDate));
 
         ArrayList allPalindromesArray = allPalindromes();
-        out.add("Max palindrome is: " + Collections.max(allPalindromesArray));
-
-
-        endDate = new Date();
+        out.add("Max palindrome is: " + Collections.max(allPalindromesArray));        endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");
-
-        TaskEnvironment.writeFile(out);
-        TaskEnvironment.printStats(out);
+        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        logger.log(out);
     }
 
     static boolean isPalindrome(String s) {

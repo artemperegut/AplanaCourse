@@ -32,10 +32,8 @@ public class Task3 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");
-
-        TaskEnvironment.writeFile(out);
-        TaskEnvironment.printStats(out);
+        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        logger.log(out);
     }
 
     static ArrayList factors(long number) {

@@ -30,10 +30,8 @@ public class Task2 extends Thread implements Task {
         endDate = new Date();
         out.add("End time: " + dateFormat.format(endDate));
 
-        out.add("Duration: " + getProcessTime() + " seconds\n");
-
-        TaskEnvironment.writeFile(out);
-        TaskEnvironment.printStats(out);
+        out.add("Duration: " + getProcessTime() + " seconds\n");        TaskLogger logger = new TaskLogger();
+        logger.log(out);
     }
 
     static int fib() {
@@ -48,7 +46,7 @@ public class Task2 extends Thread implements Task {
             if (fib2 >= 4000000) {
                 break;
             }
-            //System.out.print(fibNext + " ");
+
             if (fibNext % 2 == 0) {
                 totalSum = totalSum + fibNext;
             }
