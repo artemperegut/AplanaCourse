@@ -1,31 +1,41 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task5 implements Task, Runnable {
+public class Task5 extends Thread implements Task {
+
+    private final Object o;
+    Task5(Object o) {
+        this.o = o;
+        start();
+    }
 
     private Date startDate;
     private Date endDate;
+    private ArrayList<String> out = new ArrayList<>();
 
     public double getProcessTime() {
         return (endDate.getTime() - startDate.getTime()) / 1000d;
     }
 
     public void run() {
-        System.out.println("Task5 - Какое самое маленькое число делится нацело на все числа от 1 до 20?");
+        out.add("\nTask5 - Какое самое маленькое число делится нацело на все числа от 1 до 20?");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         startDate = new Date();
-        System.out.println("Start time: " + dateFormat.format(startDate));
+        out.add("Start time: " + dateFormat.format(startDate));
 
-        smallest();
+        out.add("Smalles number: " + smallest());
 
         endDate = new Date();
-        System.out.println("End time: " + dateFormat.format(endDate));
+        out.add("End time: " + dateFormat.format(endDate));
 
-        System.out.println("Duration: " + getProcessTime() + " seconds");
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskEnvironment.printStats(out);
     }
 
-    static void smallest() {
+    static Long smallest() {
         long a = 21;
         while (true) {
             boolean all = true;
@@ -37,8 +47,7 @@ public class Task5 implements Task, Runnable {
                 }
             }
             if (all) {
-                System.out.println("Smalles number: " + a);
-                break;
+                return a;
             }
             a++;
         }

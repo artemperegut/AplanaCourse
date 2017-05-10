@@ -2,10 +2,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Task3 implements Task, Runnable {
+public class Task3 extends Thread implements Task {
+
+    private final Object o;
+    Task3(Object o) {
+        this.o = o;
+        start();
+    }
 
     private Date startDate;
     private Date endDate;
+    private ArrayList<String> out = new ArrayList<>();
 
     public double getProcessTime() {
         return (endDate.getTime() - startDate.getTime()) / 1000d;
@@ -14,18 +21,20 @@ public class Task3 implements Task, Runnable {
     public void run() {
         long number = 600851475143L;
 
-        System.out.println("Task3 - Каков самый большой делитель числа 600851475143, являющийся простым числом?");
+        out.add("\nTask3 - Каков самый большой делитель числа 600851475143, являющийся простым числом?");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         startDate = new Date();
-        System.out.println("Start time: " + dateFormat.format(startDate));
+        out.add("Start time: " + dateFormat.format(startDate));
 
         ArrayList allFactors = factors(number);
+        out.add("Max prime factor: " + Collections.max(allFactors));
 
         endDate = new Date();
-        System.out.println("End time: " + dateFormat.format(endDate));
+        out.add("End time: " + dateFormat.format(endDate));
 
-        System.out.println("Duration: " + getProcessTime() + " seconds");
-        System.out.print("Max prime factor: " + Collections.max(allFactors));
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskEnvironment.printStats(out);
     }
 
     static ArrayList factors(long number) {
@@ -35,7 +44,6 @@ public class Task3 implements Task, Runnable {
                 factors.add(i);
             }
         }
-        System.out.println("All prime factors: " + factors);
         return factors;
     }
 }

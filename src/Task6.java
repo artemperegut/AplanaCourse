@@ -1,29 +1,39 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task6 implements Task, Runnable {
+public class Task6 extends Thread implements Task {
+
+    private final Object o;
+    Task6(Object o) {
+        this.o = o;
+        start();
+    }
 
     private Date startDate;
     private Date endDate;
+    private ArrayList<String> out = new ArrayList<>();
 
     public double getProcessTime() {
         return (endDate.getTime() - startDate.getTime()) / 1000d;
     }
 
     public void run() {
-        System.out.println("Task6 - Найдите разность между суммой квадратов и квадратом суммы первых ста натуральных чисел.");
+        out.add("\nTask6 - Найдите разность между суммой квадратов и квадратом суммы первых ста натуральных чисел.");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         startDate = new Date();
-        System.out.println("Start time: " + dateFormat.format(startDate));
+        out.add("Start time: " + dateFormat.format(startDate));
 
         int difference = squareOfSums(100) - sumOfSquares(100);
+        out.add("Difference: " + difference);
 
         endDate = new Date();
-        System.out.println("End time: " + dateFormat.format(endDate));
+        out.add("End time: " + dateFormat.format(endDate));
 
-        System.out.println("Duration: " + getProcessTime() + " seconds");
-        System.out.println("Difference: " + difference);
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskEnvironment.printStats(out);
     }
 
     static int squareOfSums(int limit) {

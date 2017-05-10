@@ -4,29 +4,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class Task4 implements Task, Runnable {
+public class Task4 extends Thread implements Task {
+
+    private final Object o;
+    Task4(Object o) {
+        this.o = o;
+        start();
+    }
 
     private Date startDate;
     private Date endDate;
+    private ArrayList<String> out = new ArrayList<>();
 
     public double getProcessTime() {
         return (endDate.getTime() - startDate.getTime()) / 1000d;
     }
 
     public void run() {
-        System.out.println("Task4 - Найдите самый большой палиндром, полученный умножением двух трёхзначных чисел.");
+        out.add("\nTask4 - Найдите самый большой палиндром, полученный умножением двух трёхзначных чисел.");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         startDate = new Date();
-        System.out.println("Start time: " + dateFormat.format(startDate));
+        out.add("Start time: " + dateFormat.format(startDate));
 
         ArrayList allPalindromesArray = allPalindromes();
-        System.out.println("Max palindrome is: " + Collections.max(allPalindromesArray));
+        out.add("Max palindrome is: " + Collections.max(allPalindromesArray));
 
 
         endDate = new Date();
-        System.out.println("End time: " + dateFormat.format(endDate));
+        out.add("End time: " + dateFormat.format(endDate));
 
-        System.out.println("Duration: " + getProcessTime() + " seconds");
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskEnvironment.printStats(out);
     }
 
     static boolean isPalindrome(String s) {

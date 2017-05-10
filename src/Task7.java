@@ -1,28 +1,38 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task7 implements Task, Runnable {
+public class Task7 extends Thread implements Task {
+
+    private final Object o;
+    Task7(Object o) {
+        this.o = o;
+        start();
+    }
 
     private Date startDate;
     private Date endDate;
+    private ArrayList<String> out = new ArrayList<>();
 
     public double getProcessTime() {
         return (endDate.getTime() - startDate.getTime()) / 1000d;
     }
 
     public void run() {
-        System.out.println("Task7 - Какое число является 10001-ым простым числом?");
+        out.add("\nTask7 - Какое число является 10001-ым простым числом?");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         startDate = new Date();
-        System.out.println("Start time: " + dateFormat.format(startDate));
+        out.add("Start time: " + dateFormat.format(startDate));
 
-        System.out.println("10001 prime is: " + primeIndex(10001));
+        out.add("10001 prime is: " + primeIndex(10001));
 
         endDate = new Date();
-        System.out.println("End time: " + dateFormat.format(endDate));
+        out.add("End time: " + dateFormat.format(endDate));
 
-        System.out.println("Duration: " + getProcessTime() + " seconds");
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskEnvironment.printStats(out);
     }
 
     static long primeIndex(int index) {

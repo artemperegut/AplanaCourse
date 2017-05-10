@@ -1,28 +1,38 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task8 implements Task, Runnable {
+public class Task8 extends Thread implements Task {
+
+    private final Object o;
+    Task8(Object o) {
+        this.o = o;
+        start();
+    }
 
     private Date startDate;
     private Date endDate;
+    private ArrayList<String> out = new ArrayList<>();
 
     public double getProcessTime() {
         return (endDate.getTime() - startDate.getTime()) / 1000d;
     }
 
     public void run() {
-        System.out.println("Task8 - Найдите наибольшее произведение тринадцати последовательных цифр в данном числе.");
+        out.add("\nTask8 - Найдите наибольшее произведение тринадцати последовательных цифр в данном числе.");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         startDate = new Date();
-        System.out.println("Start time: " + dateFormat.format(startDate));
+        out.add("Start time: " + dateFormat.format(startDate));
 
-        multiplication(13);
+        out.add("Max : " + multiplication(13));
 
         endDate = new Date();
-        System.out.println("End time: " + dateFormat.format(endDate));
+        out.add("End time: " + dateFormat.format(endDate));
 
-        System.out.println("Duration: " + getProcessTime() + " seconds");
+        out.add("Duration: " + getProcessTime() + " seconds\n");
+
+        TaskEnvironment.printStats(out);
     }
 
     static Long multiplication(int numbers) {
@@ -66,7 +76,6 @@ public class Task8 implements Task, Runnable {
                 max = product;
             }
         }
-        System.out.println("max : " + max);
         return max;
     }
 }
