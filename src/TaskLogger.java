@@ -9,7 +9,7 @@ public class TaskLogger {
         for (String element : stats) {
             System.out.println(element);
             try {
-                Files.write(Paths.get("output.txt"), (element + "\n").getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get("output.txt"), element.getBytes(), StandardOpenOption.APPEND);
             } catch (IOException e) {
                 e.printStackTrace();
             }
