@@ -1,14 +1,13 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
-/**
- * Created by user on 02.05.2017.
- */
 public class TaskEnvironment {
-    public static void main(String[] args) throws FileNotFoundException {
+    static ArrayList<String> outS = new ArrayList<>();
+
+    public static void main(String[] args) {
+
         Object o = new Object();
         Task1 task1 = new Task1(o);
         Task2 task2 = new Task2(o);
@@ -20,10 +19,21 @@ public class TaskEnvironment {
         Task8 task8 = new Task8(o);
         Task9 task9 = new Task9(o);
         Task10 task10 = new Task10(o);
+
+        TaskEnvironment.writeFile(outS);
     }
 
     static void printStats(ArrayList<String> array) {
-        for (String element : array)
+        for (String element : array) {
             System.out.println(element);
+        }
+    }
+
+    static void writeFile(ArrayList<String> array) {
+        try {
+            Files.write(Paths.get("output.txt"), array);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
