@@ -1,5 +1,20 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class TaskEnvironment {
     public static void main(String[] args) {
+        PrintWriter pw;
+        try {
+            pw = new PrintWriter("output.txt");
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Object o = new Object();
         Task1 task1 = new Task1(o);
         Task2 task2 = new Task2(o);
