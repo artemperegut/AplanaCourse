@@ -4,10 +4,7 @@ import java.util.*;
 
 public class Task3 extends Thread implements Task {
 
-    private final Object o;
-
-    Task3(Object o) {
-        this.o = o;
+    Task3() {
         start();
     }
 

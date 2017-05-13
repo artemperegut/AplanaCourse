@@ -5,10 +5,7 @@ import java.util.Date;
 
 public class Task10 extends Thread implements Task {
 
-    private final Object o;
-
-    Task10(Object o) {
-        this.o = o;
+    Task10() {
         start();
     }
 
